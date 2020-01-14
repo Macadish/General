@@ -6,9 +6,10 @@ Apply for an account by emailing GIS Scientific Support and Shared Services scie
 to complete a questionnaire process.
 
 Once completed, you will receive an email with log in information and instructions:
-<img src="./links/login.png" height="400">
+![](links/login.png)
 
-## Diskspace
+
+## Disk Space
 Request for space from shared services or from members in the group. The group is allocated a total space, and each project under the group is also allocated a fixed amount of space. Since the space allocation overlaps, it is unclear which one sets the space limit.
 
 To check the amount space available, use the code `df -h .`.
@@ -39,7 +40,7 @@ ssh <username>@<node>.gis.a-star.edu.sg
 
 Change `h_rt` and `mem_free` depending on your own needs.
 
-## sftp
+## SFTP
 Download [filezilla](https://filezilla-project.org/) or any other file manager.
 ```bash
 sftp <username>@ionode.gis.a-star.edu.sg
@@ -50,15 +51,3 @@ On the cluster, check out [/opt/uge-8.1.7p3/examples/jobs/array_submitter.sh]('.
 
 For a simple way to submit jobs, use
 `qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH filename.sh`
-
-## SRA
-Use the [SRA_website](https://intranet.gis.a-star.edu.sg:8100/cas/login?service=http%3A%2F%2Fplap12v.gis.a-star.edu.sg%3A8080%2Fsra-ui%2Fj_spring_cas_security_check) to access raw sequencing data on the GIS repository. This [wiki](http://wiki.gis.a-star.edu.sg/index.php/SRAQuery) contains more codes to move and transfer raw files from the depository.
-
-To check if the library exist, use either ~~[SRA_website](https://intranet.gis.a-star.edu.sg:8100/cas/login?service=http%3A%2F%2Fplap12v.gis.a-star.edu.sg%3A8080%2Fsra-ui%2Fj_spring_cas_security_check) or~~ the commandline `/mnt/software/unstowable/archive/jdk8/bin/java -jar /mnt/software/bin/SRAQuery.jar -lib MUX10763`.
-
-_Location of metasub sequencing filenames._
-`smb://nlsmb.gis.a-star.edu.sg/Research/CSB/CSB5/Eliza/Food microbiome 2019/MetaSub/MetaSub Analysis`
-
-```bash
-echo "java -jar /mnt/software/bin/SRAQuery.jar -lib MUX3217 -compress -extract /mnt/<...your destination...>" | qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH
-```

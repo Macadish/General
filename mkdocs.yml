@@ -1,0 +1,13 @@
+site_name: General Guide
+nav:
+    - Home: index.md
+    - About: about.md
+    - GIS:
+      - GIS/Getting_Started.md
+      - Shotgun Metagenomics Sequencing: GIS/MGS.md
+theme: readthedocs
+markdown_extensions:
+    - toc:
+        permalink: "#"
+        baselevel: 1
+        separator: "_"
