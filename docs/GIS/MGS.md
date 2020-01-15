@@ -22,13 +22,44 @@ mv nextflow ~/bin
 ```
 
 ## SRA
-Use the [SRA_website](https://intranet.gis.a-star.edu.sg:8100/cas/login?service=http%3A%2F%2Fplap12v.gis.a-star.edu.sg%3A8080%2Fsra-ui%2Fj_spring_cas_security_check) to access raw sequencing data on the GIS repository. This [wiki](http://wiki.gis.a-star.edu.sg/index.php/SRAQuery) contains more codes to move and transfer raw files from the depository.
+Use the [SRA_website](https://intranet.gis.a-star.edu.sg:8100/cas/login?service=http%3A%2F%2Fplap12v.gis.a-star.edu.sg%3A8080%2Fsra-ui%2Fj_spring_cas_security_check) to access raw sequencing data on the GIS repository. You have two options to transfer file off SRA to your disk on the cluster or your personal device.
+1. Web UI
+2. Command-Line-Interface (CLI)
 
-To check if the library exist, use either ~~[SRA_website](https://intranet.gis.a-star.edu.sg:8100/cas/login?service=http%3A%2F%2Fplap12v.gis.a-star.edu.sg%3A8080%2Fsra-ui%2Fj_spring_cas_security_check) or~~ the commandline `/mnt/software/unstowable/archive/jdk8/bin/java -jar /mnt/software/bin/SRAQuery.jar -lib MUX10763`.
+Make sure before transferring that you are allocated sufficient disk space to store all the raw files. Each set of paired reads will be roughly 1GB in size.
 
-_Location of metasub sequencing filenames._
-`smb://nlsmb.gis.a-star.edu.sg/Research/CSB/CSB5/Eliza/Food microbiome 2019/MetaSub/MetaSub Analysis`
+### WEB UI
+You can either download the sequences directly to your computer, or you can direct the download to a server via sftp. The figures below will show you how to retrieve the sequences and the section to configure an sftp download.
+
+![hihi](links/sra_lib.png){: style="width:300px"}![hoho](links/sftp.png){: style="width:350px"}
+
+### CLI
+This [wiki](http://wiki.gis.a-star.edu.sg/index.php/SRAQuery) contains more codes to move and transfer raw files from the depository.
+
+To check if the library exist, use either <del>[SRA_website](https://intranet.gis.a-star.edu.sg:8100/cas/login?service=http%3A%2F%2Fplap12v.gis.a-star.edu.sg%3A8080%2Fsra-ui%2Fj_spring_cas_security_check) or</del> the command line `/mnt/software/unstowable/archive/jdk8/bin/java -jar /mnt/software/bin/SRAQuery.jar -lib MUX10763`.
+
+For example, _location of metasub sequencing filenames._
+```
+smb://nlsmb.gis.a-star.edu.sg/Research/CSB/CSB5/Eliza/Food microbiome\ 2019/MetaSub/MetaSub Analysis
+```
 
 ```bash
-echo "java -jar /mnt/software/bin/SRAQuery.jar -lib MUX3217 -compress -extract /mnt/<...your destination...>" | qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH
+echo "/mnt/software/unstowable/archive/jdk8/bin/java -jar /mnt/software/bin/SRAQuery.jar -lib MUX10823 -compress -extract /mnt/<...your destination...>" | qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH
 ```
+Here is an example on how to download multiple runs with a bash for loop.
+```bash
+#!/usr/bin/env bash
+for VARIABLE in 10763 10777 10767 10764 10823
+do
+  export SQRUN=MUX$VARIABLE
+  export DIR=/home/teojyj/proj_metasub/data/SRA_data/$SQRUN/
+  echo "/mnt/software/unstowable/archive/jdk8/bin/java -jar /mnt/software/bin/SRAQuery.jar \
+  -lib $SQRUN -compress -extract $DIR" | \
+  qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH -e $DIR \
+  -o $DIR
+done
+```
+## Running the pipeline
+
+When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$

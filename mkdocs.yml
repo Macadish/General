@@ -1,13 +1,20 @@
 site_name: General Guide
 nav:
     - Home: index.md
-    - About: about.md
     - GIS:
       - GIS/Getting_Started.md
       - Shotgun Metagenomics Sequencing: GIS/MGS.md
+
 theme: readthedocs
+
+extra_javascript:
+    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
 markdown_extensions:
     - toc:
         permalink: "#"
         baselevel: 1
         separator: "_"
+    - attr_list
+    - mdx_math:
+        enable_dollar_delimiter: True
