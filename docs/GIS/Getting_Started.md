@@ -1,5 +1,9 @@
 # Getting Started
-This guide contains the basic codes to get you started on NGS on the cluster at GIS.
+This guide contains the basic codes to get you started on NGS on the cluster at GIS. It is based on the following guides:
+
+1. [GIS Intranet](http://intranet.gis.a-star.edu.sg/opencms754/opencms/intranet/index.html)
+1. [GIS (HPC) Wiki](http://wiki.gis.a-star.edu.sg/index.php/Main_Page)
+1. [Bioinfo Best Practices](http://wiki.gis.a-star.edu.sg/index.php/BioinfoBestPractices)
 
 ## Account
 Apply for an account by emailing GIS Scientific Support and Shared Services scientificsupport@gis.a-star.edu.sg or sharedservices@gis.a-star.edu.sg. You will need
@@ -23,11 +27,6 @@ Location of metasub sequencing filenames.
 ## Start up script
 You can configure bash startup scripts in either `~/.bashrc` or `~/.bash_profile`.
 
-## Resources
-This guide is based on the following GIS HPC Guides:
-1. [GIS Intranet](http://intranet.gis.a-star.edu.sg/opencms754/opencms/intranet/index.html)
-1. [GIS (HPC) Wiki](http://wiki.gis.a-star.edu.sg/index.php/Main_Page)
-
 ## Cluster Access
 ```bash
 ssh <username>@<node>.gis.a-star.edu.sg
@@ -50,4 +49,11 @@ sftp <username>@ionode.gis.a-star.edu.sg
 On the cluster, check out [/opt/uge-8.1.7p3/examples/jobs/array_submitter.sh]('./links/array_submitter.md') and [/opt/uge-8.1.7p3/examples/jobs/jobnet_submitter.sh]('./links/jobnet_submitter.md') for examples on how to submit jobs.
 
 For a simple way to submit jobs, use
-`qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH filename.sh`
+```
+qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH filename.sh
+echo "commands1; comamnds2; commands3" | qsub -pe OpenMP 5 -l h_rt=24:00:00 -l mem_free=16G -v PATH
+```
+
+Note: If a command runs in interactive mode but not when submitted as a job, it is likely due to differences in environment. To copy the environment over when submitting a job, use `-V`.
+
+`qsub -pe OpenMP 5 -l h_rt=48:00:00 -l mem_free=16G -V filename.sh`

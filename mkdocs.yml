@@ -2,8 +2,21 @@ site_name: General Guide
 nav:
     - Home: index.md
     - GIS:
-      - GIS/Getting_Started.md
-      - Shotgun Metagenomics Sequencing: GIS/MGS.md
+      - GIS/getting_started.md
+      - Shotgun Metagenomics Sequencing: GIS/metagenomesequence.md
+      - Library Preparation: GIS/lib_prep.md
+      - GIS/pandas.md
+    - Metagenomic Sequencing:
+      - Overview: MGS/overview.md
+      - Preprocessing: MGS/preprocessing.md
+      - Abundance Estimation Programs: MGS/abundance.md
+      - Assembly Programs: MGS/assembly.md
+      - Pipeline: MGS/pipeline.md
+    - misc:
+      - Math: misc/math.md
+      - misc/tools.md
+      - misc/mdguide.md
+      - Guide for bash: misc/guide_bash.md
 
 theme: readthedocs
 
@@ -18,3 +31,5 @@ markdown_extensions:
     - attr_list
     - mdx_math:
         enable_dollar_delimiter: True
+    - sane_lists
+    - admonition
